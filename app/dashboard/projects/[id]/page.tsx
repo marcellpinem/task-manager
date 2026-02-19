@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import TaskItem from "./TaskItem";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -55,24 +56,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {tasks && tasks.length > 0 ? (
           <div className="grid gap-3">
             {tasks.map((task) => (
-              <div key={task.id} className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold">{task.title}</h3>
-                  <span
-                    className={`text-xs px-2 py-1 rounded-full font-medium
-                    ${task.priority === "high" ? "bg-red-100 text-red-600" : ""}
-                    ${task.priority === "medium" ? "bg-yellow-100 text-yellow-600" : ""}
-                    ${task.priority === "low" ? "bg-green-100 text-green-600" : ""}
-                  `}
-                  >
-                    {task.priority}
-                  </span>
-                </div>
-                {task.description && <p className="text-gray-500 text-sm mt-1">{task.description}</p>}
-                {task.due_date && (
-                  <p className="text-gray-400 text-xs mt-2">Due: {new Date(task.due_date).toLocaleDateString()}</p>
-                )}
-              </div>
+              <TaskItem key={task.id} task={task} projectId={id} />
             ))}
           </div>
         ) : (
