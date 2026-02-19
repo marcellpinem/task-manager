@@ -30,10 +30,14 @@ export default async function ProjectsPage() {
         {projects && projects.length > 0 ? (
           <div className="grid gap-4">
             {projects.map((project) => (
-              <div key={project.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+              <a
+                key={project.id}
+                href={`/dashboard/projects/${project.id}`}
+                className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:border-blue-400 transition"
+              >
                 <h2 className="text-lg font-semibold">{project.name}</h2>
                 {project.description && <p className="text-gray-500 mt-1">{project.description}</p>}
-              </div>
+              </a>
             ))}
           </div>
         ) : (
